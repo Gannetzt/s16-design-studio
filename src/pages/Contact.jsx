@@ -29,7 +29,7 @@ const Contact = () => {
               Let's Start a <span className="text-accentGold">Conversation</span>
             </h1>
             <p className="text-gray-600 dark:text-gray-400 text-xl leading-relaxed">
-              Have a project in mind? We'd love to hear about it. Reach out and let's build something extraordinary together.
+              Have a project in mind? We'd love to hear about it. Operating across **Bangalore, Hyderabad, Vijayawada, and Vizag**, we're ready to build something extraordinary together.
             </p>
           </motion.div>
         </div>
@@ -113,7 +113,8 @@ const Contact = () => {
                 <h2 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">Contact Details</h2>
                 <div className="space-y-6">
                   {[
-                    { icon: <MapPin size={22} />, label: 'Address', value: 'Plot No. 12, Jubilee Hills, Hyderabad, Telangana 500033' },
+                    { icon: <MapPin size={22} />, label: 'Headquarters', value: 'Plot No. 12, Jubilee Hills, Hyderabad, Telangana 500033' },
+                    { icon: <MapPin size={22} />, label: 'Serving', value: 'Bangalore | Hyderabad | Vijayawada | Vizag' },
                     { icon: <Phone size={22} />, label: 'Phone', value: '+91 90000 12345' },
                     { icon: <Mail size={22} />, label: 'Email', value: 'info@s16studio.com' },
                   ].map((item) => (

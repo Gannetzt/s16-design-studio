@@ -28,11 +28,11 @@ const AboutPreview = () => {
             </h2>
             
             <p className="text-gray-600 dark:text-gray-400 mb-6 text-lg tracking-wide leading-relaxed">
-              Founded in 2018, S16 Design Studio Private Limited is Hyderabad's premier luxury architecture and interior design firm. Every project — from bespoke villas to smart commercial environments — is treated as a singular composition.
+              At S16 Design Studio, we believe that great design is not just seen—it is experienced. Built on the philosophy of “From Structure to Soul,” we create spaces that balance functionality, aesthetics, and purpose.
             </p>
             
             <p className="text-gray-600 dark:text-gray-400 mb-10 text-lg tracking-wide leading-relaxed">
-              We blend Vastu principles, smart-home technology, and premium materials to create spaces that endure the test of time and trend.
+              With a growing presence across **Bangalore, Hyderabad, Vijayawada, and Vizag**, we deliver end-to-end interior and architectural solutions that transform visions into enduring realities.
             </p>
             
             <Link 
