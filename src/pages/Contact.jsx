@@ -5,14 +5,41 @@ import { MapPin, Phone, Mail, Send, CheckCircle2 } from 'lucide-react';
 const Contact = () => {
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby1TO5JYf_7y1LN5KCVLlOby63iJ9y3RQWqGBw4vg2UqVw_O8QQa-TOrtscQwBhftp4aA/exec';
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 4000);
-    setFormData({ name: '', phone: '', email: '', message: '' });
+    setIsSubmitting(true);
+    
+    try {
+      await fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message,
+          type: 'Contact'
+        }),
+      });
+
+      setSubmitted(true);
+      setTimeout(() => setSubmitted(false), 4000);
+      setFormData({ name: '', phone: '', email: '', message: '' });
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('Failed to send message. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -60,19 +87,21 @@ const Contact = () => {
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 {[
-                  { label: 'Full Name', name: 'name', type: 'text', placeholder: 'Your full name' },
-                  { label: 'Phone Number', name: 'phone', type: 'tel', placeholder: '+91 90000 12345' },
-                  { label: 'Email Address', name: 'email', type: 'email', placeholder: 'your@email.com' },
+                  { label: 'Full Name', name: 'name', type: 'text', placeholder: 'Your full name', required: true },
+                  { label: 'Phone Number', name: 'phone', type: 'tel', placeholder: '+91 90000 12345', required: true },
+                  { label: 'Email Address', name: 'email', type: 'email', placeholder: 'your@email.com', required: false },
                 ].map((field) => (
                   <div key={field.name}>
-                    <label className="block text-sm font-bold uppercase tracking-widest mb-2 text-gray-500 dark:text-gray-400">{field.label}</label>
+                    <label className="block text-sm font-bold uppercase tracking-widest mb-2 text-gray-500 dark:text-gray-400">
+                      {field.label}{field.required && <span className="text-accentGold ml-1">*</span>}
+                    </label>
                     <input
                       type={field.type}
                       name={field.name}
                       value={formData[field.name]}
                       onChange={handleChange}
                       placeholder={field.placeholder}
-                      required
+                      required={field.required}
                       className="w-full bg-gray-50 dark:bg-secondaryBackground border border-gray-200 dark:border-white/10 rounded-xl px-5 py-4 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:border-accentGold transition-colors shadow-inner"
                     />
                   </div>
@@ -84,19 +113,19 @@ const Contact = () => {
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder="Tell us about your project..."
+                    placeholder="Tell us about your project... (Optional)"
                     rows={5}
-                    required
                     className="w-full bg-gray-50 dark:bg-secondaryBackground border border-gray-200 dark:border-white/10 rounded-xl px-5 py-4 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:border-accentGold transition-colors shadow-inner resize-none"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full py-4 bg-accentGold hover:bg-hoverAccent text-white font-bold tracking-widest text-sm uppercase rounded-full transition-all duration-300 flex items-center justify-center gap-3 shadow-lg hover:shadow-xl"
+                  disabled={isSubmitting}
+                  className="w-full py-4 bg-accentGold hover:bg-hoverAccent text-white font-bold tracking-widest text-sm uppercase rounded-full transition-all duration-300 flex items-center justify-center gap-3 shadow-lg hover:shadow-xl disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  <Send size={18} />
-                  Send Message
+                  <Send size={18} className={isSubmitting ? "animate-pulse" : ""} />
+                  {isSubmitting ? "Sending..." : "Send Message"}
                 </button>
               </form>
             </motion.div>

@@ -9,17 +9,46 @@ const timelines = ['1–3 Months', '3–6 Months', '6–12 Months', '12+ Months'
 const QuoteModal = ({ isOpen, onClose }) => {
   const [form, setForm] = useState({ name: '', email: '', phone: '', projectType: '', budgetRange: '', timeline: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby1TO5JYf_7y1LN5KCVLlOby63iJ9y3RQWqGBw4vg2UqVw_O8QQa-TOrtscQwBhftp4aA/exec';
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setForm({ name: '', email: '', phone: '', projectType: '', budgetRange: '', timeline: '', message: '' });
-      onClose();
-    }, 3000);
+    setIsSubmitting(true);
+    
+    const formattedMessage = `Project: ${form.projectType}\nBudget: ${form.budgetRange}\nTimeline: ${form.timeline}\nRemarks: ${form.message}`;
+
+    try {
+      await fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          message: formattedMessage,
+          type: 'Quote'
+        }),
+      });
+
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        setForm({ name: '', email: '', phone: '', projectType: '', budgetRange: '', timeline: '', message: '' });
+        onClose();
+      }, 3000);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('Failed to send request. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -65,11 +94,17 @@ const QuoteModal = ({ isOpen, onClose }) => {
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {[{ label: 'Full Name', name: 'name', type: 'text' }, { label: 'Email', name: 'email', type: 'email' }, { label: 'Phone', name: 'phone', type: 'tel' }].map(f => (
+                    {[
+                      { label: 'Full Name', name: 'name', type: 'text', required: true }, 
+                      { label: 'Email', name: 'email', type: 'email', required: false }, 
+                      { label: 'Phone', name: 'phone', type: 'tel', required: true }
+                    ].map(f => (
                       <div key={f.name} className={f.name === 'phone' ? 'md:col-span-2' : ''}>
-                        <label className="block text-[10px] uppercase tracking-[0.2em] font-bold mb-2 text-gray-400">{f.label}</label>
+                        <label className="block text-[10px] uppercase tracking-[0.2em] font-bold mb-2 text-gray-400">
+                          {f.label}{f.required && <span className="text-accentGold ml-1">*</span>}
+                        </label>
                         <input
-                          type={f.type} name={f.name} value={form[f.name]} onChange={handleChange} required
+                          type={f.type} name={f.name} value={form[f.name]} onChange={handleChange} required={f.required}
                           className="w-full bg-gray-50 dark:bg-secondaryBackground border border-gray-200 dark:border-white/10 rounded-xl px-5 py-4 text-sm text-gray-900 dark:text-white focus:outline-none focus:border-accentGold transition-colors font-semibold"
                         />
                       </div>
@@ -100,16 +135,18 @@ const QuoteModal = ({ isOpen, onClose }) => {
                     <label className="block text-[10px] uppercase tracking-[0.2em] font-bold mb-2 text-gray-400">Message</label>
                     <textarea
                       name="message" value={form.message} onChange={handleChange} rows={4}
-                      placeholder="Brief description of your project..."
+                      placeholder="Brief description of your project... (Optional)"
                       className="w-full bg-gray-50 dark:bg-secondaryBackground border border-gray-200 dark:border-white/10 rounded-xl px-5 py-4 text-sm text-gray-900 dark:text-white focus:outline-none focus:border-accentGold transition-colors resize-none font-medium shadow-inner"
                     />
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full py-5 bg-accentGold hover:bg-hoverAccent text-white font-bold tracking-[0.2em] text-xs uppercase rounded-full transition-all duration-300 flex items-center justify-center gap-3 shadow-xl hover:shadow-2xl"
+                    disabled={isSubmitting}
+                    className="w-full py-5 bg-accentGold hover:bg-hoverAccent text-white font-bold tracking-[0.2em] text-xs uppercase rounded-full transition-all duration-300 flex items-center justify-center gap-3 shadow-xl hover:shadow-2xl disabled:opacity-70 disabled:cursor-not-allowed"
                   >
-                    <Send size={18} /> Submit Quote Request
+                    <Send size={18} className={isSubmitting ? "animate-pulse" : ""} /> 
+                    {isSubmitting ? "Submitting..." : "Submit Quote Request"}
                   </button>
                 </form>
               )}
