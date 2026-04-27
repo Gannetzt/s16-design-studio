@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send, CheckCircle2 } from 'lucide-react';
 
 const projectTypes = ['Residential Villa', 'Apartment Interior', 'Commercial Office', 'Retail Space', 'Hospitality', 'Other'];
-const budgetRanges = ['₹25L – ₹50L', '₹50L – ₹1Cr', '₹1Cr – ₹2Cr', '₹2Cr – ₹5Cr', '₹5Cr+'];
+const budgetRanges = ['₹10L – ₹25L', '₹25L – ₹50L', '₹50L – ₹1Cr', '₹1Cr – ₹2Cr', '₹2Cr – ₹5Cr', '₹5Cr+'];
 const timelines = ['1–3 Months', '3–6 Months', '6–12 Months', '12+ Months'];
 
 const QuoteModal = ({ isOpen, onClose }) => {
