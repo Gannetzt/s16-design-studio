@@ -142,16 +142,28 @@ const Contact = () => {
                 <h2 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">Contact Details</h2>
                 <div className="space-y-6">
                   {[
-                    { icon: <MapPin size={22} />, label: 'Headquarters', value: 'Plot No. 12, Jubilee Hills, Hyderabad, Telangana 500033' },
+                    { 
+                      icon: <MapPin size={22} />, 
+                      label: 'Headquarters', 
+                      value: <a href="https://maps.google.com/?q=Balaji+Arcade,+Ground+Floor,+TNGO+Colony+phase-2,+Goldcrest+School+Road,+Gachibowli+500046,+Telangana,+Hyderabad" target="_blank" rel="noopener noreferrer" className="hover:text-accentGold transition-colors">Balaji Arcade, Ground Floor, TNGO Colony phase-2, Goldcrest School Road, Gachibowli 500046, Telangana, Hyderabad</a>
+                    },
                     { icon: <MapPin size={22} />, label: 'Serving', value: 'Bangalore | Hyderabad | Vijayawada | Vizag' },
-                    { icon: <Phone size={22} />, label: 'Phone', value: '+91 90000 12345' },
-                    { icon: <Mail size={22} />, label: 'Email', value: 'info@s16studio.com' },
+                    { 
+                      icon: <Phone size={22} />, 
+                      label: 'Phone', 
+                      value: <span className="flex gap-1"><a href="tel:+918790872287" className="hover:text-accentGold transition-colors">+91 87908 72287</a><span>/</span><a href="tel:+918123244152" className="hover:text-accentGold transition-colors">+91 81232 44152</a></span>
+                    },
+                    { 
+                      icon: <Mail size={22} />, 
+                      label: 'Email', 
+                      value: <a href="mailto:space16designstudio@gmail.com" className="hover:text-accentGold transition-colors">space16designstudio@gmail.com</a>
+                    },
                   ].map((item) => (
                     <div key={item.label} className="flex items-start gap-5">
                       <div className="text-accentGold mt-1 flex-shrink-0">{item.icon}</div>
                       <div>
                         <p className="text-xs uppercase tracking-[0.2em] text-gray-400 dark:text-gray-500 mb-1 font-bold">{item.label}</p>
-                        <p className="font-semibold text-gray-800 dark:text-white">{item.value}</p>
+                        <div className="font-semibold text-gray-800 dark:text-white">{item.value}</div>
                       </div>
                     </div>
                   ))}
@@ -169,7 +181,7 @@ const Contact = () => {
                   <div className="bg-accentGold rounded-full p-3 mb-3 shadow-lg">
                     <MapPin size={24} className="text-white" />
                   </div>
-                  <p className="text-gray-900 dark:text-white font-bold text-lg">Jubilee Hills, Hyderabad</p>
+                  <p className="text-gray-900 dark:text-white font-bold text-lg">Gachibowli, Hyderabad</p>
                   <p className="text-gray-600 dark:text-gray-400 font-medium text-sm mt-1 uppercase tracking-widest">Telangana, India</p>
                 </div>
               </div>

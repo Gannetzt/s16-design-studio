@@ -85,15 +85,21 @@ const Footer = () => {
             <ul className="space-y-4 text-sm text-gray-600 dark:text-gray-400">
               <li className="flex items-start">
                 <MapPin size={18} className="text-accentGold mr-3 mt-1 flex-shrink-0" />
-                <span>Jubilee Hills, Hyderabad, Telangana, India 500033</span>
+                <a href="https://maps.google.com/?q=Balaji+Arcade,+Ground+Floor,+TNGO+Colony+phase-2,+Goldcrest+School+Road,+Gachibowli+500046,+Telangana,+Hyderabad" target="_blank" rel="noopener noreferrer" className="hover:text-accentGold transition-colors">
+                  Balaji Arcade, Ground Floor, TNGO Colony phase-2, Goldcrest School Road, Gachibowli 500046, Telangana, Hyderabad
+                </a>
               </li>
               <li className="flex items-center">
                 <Phone size={18} className="text-accentGold mr-3 flex-shrink-0" />
-                <span>+91 98765 43210</span>
+                <div className="flex gap-2">
+                  <a href="tel:+918790872287" className="hover:text-accentGold transition-colors">+91 87908 72287</a>
+                  <span>/</span>
+                  <a href="tel:+918123244152" className="hover:text-accentGold transition-colors">+91 81232 44152</a>
+                </div>
               </li>
               <li className="flex items-center">
                 <Mail size={18} className="text-accentGold mr-3 flex-shrink-0" />
-                <span>hello@s16studio.com</span>
+                <a href="mailto:space16designstudio@gmail.com" className="hover:text-accentGold transition-colors">space16designstudio@gmail.com</a>
               </li>
             </ul>
           </div>
