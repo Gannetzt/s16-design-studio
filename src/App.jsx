@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import QuoteModal from './components/QuoteModal';
 import PageTransition from './components/PageTransition';
 import ScrollToTop from './components/ScrollToTop';
+import WhatsAppButton from './components/WhatsAppButton';
 import Home from './pages/Home';
 import About from './pages/About';
 import Services from './pages/Services';
@@ -43,6 +44,7 @@ function App() {
           <AnimatedRoutes onGetQuote={() => setIsQuoteOpen(true)} />
         </main>
         <Footer />
+        <WhatsAppButton />
         <QuoteModal isOpen={isQuoteOpen} onClose={() => setIsQuoteOpen(false)} />
       </div>
     </Router>
