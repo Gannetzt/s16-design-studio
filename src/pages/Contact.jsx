@@ -156,7 +156,7 @@ const Contact = () => {
                     { 
                       icon: <Mail size={22} />, 
                       label: 'Email', 
-                      value: <a href="mailto:space16designstudio@gmail.com" className="hover:text-accentGold transition-colors">space16designstudio@gmail.com</a>
+                      value: <a href="mailto:Info@s16designstudio.com" className="hover:text-accentGold transition-colors">Info@s16designstudio.com</a>
                     },
                   ].map((item) => (
                     <div key={item.label} className="flex items-start gap-5">
